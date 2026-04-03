@@ -1,1 +1,1 @@
-models/tinker.obj filter=lfs diff=lfs merge=lfs -text
+models/tinker.glb filter=lfs diff=lfs merge=lfs -text
