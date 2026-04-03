@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@1.0.0/dist/aframe-look-at-component.min.js"></script>
+</head>
+<body>
+    <a-scene>
+         
+        
+    <a-entity id="rig">
+
+      <!-- CAMERA = YOUR HEAD / EYES -->
+      <a-entity
+        id = "cam"
+        camera
+        position="0 1.6 0"
+        look-controls>
+      </a-entity>
+
+      <!-- LEFT CONTROLLER -->
+      <a-entity
+        id="leftController"
+        meta-touch-controls="hand: left"
+        laser-controls="hand: left"
+        raycaster="objects: .clickable; far: 20"
+        line="color: cyan">
+      </a-entity>
+
+      <!-- RIGHT CONTROLLER -->
+      <a-entity
+        id="rightController"
+        meta-touch-controls="hand: right"
+        laser-controls="hand: right"
+        raycaster="objects: .clickable; far: 20"
+        line="color: magenta">
+      </a-entity>
+
+    </a-entity>
+        <a-assets>
+            <img id="sun" src="sun.jpg" crossorigin="anonymous">
+            <img id="mercury" src="mercury.jpg" crossorigin="anonymous">
+            <img id="venus" src="venus.jpg" crossorigin="anonymous">
+            <img id="earth" src="earth.jpg" crossorigin="anonymous">
+            <img id="sky" src="space.jpg" crossorigin="anonymous">
+            <img id="mars" src="mars.jpg" crossorigin="anonymous">
+            <img id="jupiter" src="jupiter.jpg" crossorigin="anonymous">
+            <img id="saturn" src="saturn.jpg" crossorigin="anonymous">
+            <img id="uranus" src="uranus.jpg" crossorigin="anonymous">
+            <img id="neptune" src="neptune.jpg" crossorigin="anonymous">
+            
+        </a-assets>
+
+        <a-sphere position="1 1 -4" animation="property: rotation; to: 0 360 0; loop: true; dur: 3000; easing: linear"  radius="2" material="src:#sun; shader: flat;"></a-sphere>
+        <a-text id="sunPlanet" class="clickable" value="SUN" animation="property: rotation; to: 0 360 0; loop: true; dur: 3000; easing: linear" position="1 4 -4" align="center" color="white" width="3" side="double" look-at="#cam"></a-text>
+
+        <a-torus position="1 1 -4" rotation="90 0 0" radius="6.5" radius-tubular="0.01" color="white" opacity="0.3"></a-torus>
+        
+        <a-torus position="1 1 -4" rotation="90 0 0" radius="3" radius-tubular="0.01" color="white" opacity="0.3"></a-torus>
+        <a-torus position="1 1 -4" rotation="90 0 0" radius="4.5" radius-tubular="0.01" color="white" opacity="0.3"></a-torus>
+        <a-torus position="1 1 -4" rotation="90 0 0" radius="8.9" radius-tubular="0.01" color="white" opacity="0.3"></a-torus>
+        <a-torus position="1 1 -4" rotation="90 0 0" radius="12.9" radius-tubular="0.01" color="white" opacity="0.3"></a-torus>
+        <a-torus position="1 1 -4" rotation="90 0 0" radius="16.9" radius-tubular="0.01" color="white" opacity="0.3"></a-torus>
+        <a-torus position="1 1 -4" rotation="90 0 0" radius="21" radius-tubular="0.01" color="white" opacity="0.3"></a-torus>
+        <a-torus position="1 1 -4" rotation="90 0 0" radius="24.4" radius-tubular="0.01" color="white" opacity="0.3"></a-torus>
+        
+        <a-entity position="1 1 -4" animation="property: rotation; to: 0 360 0; loop: true; dur: 3000; easing: linear">
+            <a-sphere id="mercuryPlanet" class="clickable" animation="property: rotation; to: 0 360 0; loop: true; dur: 3000; easing: linear" position="3 0 0" radius=".3" material="src:#mercury;"></a-sphere>
+            <a-text value="MERCURY" position="3 .5 0" align="center" color="white" width="3" side="double" look-at="#cam"></a-text>
+        </a-entity>
+
+        <a-entity position="1 1 -4" animation="property: rotation; to: 0 360 0; loop: true; dur: 7000; easing: linear">
+            <a-sphere id="venusPlanet" class="clickable" animation="property: rotation; to: 0 360 0; loop: true; dur: 3000; easing: linear" position="4.5 0 0" radius=".4" material="src:#venus;"></a-sphere>
+            <a-text value="VENUS" position="4.5 .5 0" align="center" color="white" width="3" side="double" look-at="#cam"></a-text>
+        </a-entity>
+
+        <a-entity position="1 1 -4" animation="property: rotation; to: 0 360 0; loop: true; dur: 12000; easing: linear">
+            <a-sphere id="earthPlanet" class="clickable" animation="property: rotation; to: 0 360 0; loop: true; dur: 3000; easing: linear" position="6.5 0 0" radius=".6" material="src:#earth;"></a-sphere>
+            <a-text value="EARTH" position="6.5 .8 0" align="center" color="white" width="3" side="double" look-at="#cam"></a-text>
+        </a-entity>
+
+        <a-entity position="1 1 -4" animation="property: rotation; to: 0 360 0; loop: true; dur: 15000; easing: linear">
+            <a-sphere id="marsPlanet" class="clickable"animation="property: rotation; to: 0 360 0; loop: true; dur: 3000; easing: linear" position="9 0 0" radius=".4" material="src:#mars;"></a-sphere>
+            <a-text value="MARS" position="9 .5 0" align="center" color="white" width="3" side="double" look-at="#cam"></a-text>
+        </a-entity>
+
+        <a-entity position="1 1 -4" animation="property: rotation; to: 0 360 0; loop: true; dur: 25000; easing: linear">
+            <a-sphere id="jupiterPlanet" class="clickable" animation="property: rotation; to: 0 360 0; loop: true; dur: 3000; easing: linear" position="13 0 0" radius="1.2" material="src:#jupiter;"></a-sphere>
+            <a-text value="JUPITER" position="13 1.5 0" align="center" color="white" width="3" side="double" look-at="#cam"></a-text>
+        </a-entity>
+
+        <a-entity  position="1 1 -4" animation="property: rotation; to: 0 360 0; loop: true; dur: 35000; easing: linear">
+            <a-sphere id="saturnPlanet" class="clickable" animation="property: rotation; to: 0 360 0; loop: true; dur: 3000; easing: linear" position="17 0 0" radius="1" material="src:#saturn;">
+                <a-torus rotation="90 0 0" 
+                  radius="1.8" 
+                  radius-tubular=".06" 
+                  material="src:#saturn; side: double; opacity: 0.8;">
+                </a-torus>
+            </a-sphere>
+            <a-text value="SATURN" position="17 1.4 0" align="center" color="white" width="3" side="double" look-at="#cam"></a-text>
+            
+        </a-entity>
+
+        <a-entity position="1 1 -4" animation="property: rotation; to: 0 360 0; loop: true; dur: 45000; easing: linear">
+            <a-sphere id="uranusPlanet" class="clickable" animation="property: rotation; to: 0 360 0; loop: true; dur: 3000; easing: linear" position="21 0 0" radius=".8" material="src:#uranus;"></a-sphere>
+            <a-text value="URANUS" position="21 1.2 0" align="center" color="white" width="3" side="double" look-at="#cam"></a-text>
+        </a-entity>
+
+        <a-entity position="1 1 -4" animation="property: rotation; to: 0 360 0; loop: true; dur: 60000; easing: linear">
+            <a-sphere id="neptunePlanet" class="clickable" animation="property: rotation; to: 0 360 0; loop: true; dur: 3000; easing: linear" position="25 0 0" radius=".8" material="src:#neptune;"></a-sphere>
+            <a-text value="NEPTUNE" position="25 1.2 0" align="center" color="white" width="3" side="double" look-at="#cam"></a-text>
+        </a-entity>
+
+        <a-sky src="#sky"></a-sky>
+    </a-scene>
+
+    <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const rig = document.querySelector('#rig');
+    const leftController = document.querySelector('#leftController');
+    const rightController = document.querySelector('#rightController');
+
+    let moveForward = false;
+    let moveBackward = false;
+    let moveLeft = false;
+    let moveRight = false;
+
+    // LEFT THUMBSTICK
+    leftController.addEventListener('thumbstickmoved', function (evt) {
+      if (evt.detail.y < -0.5) {
+        moveForward = true;
+        moveBackward = false;
+      } else if (evt.detail.y > 0.5) {
+        moveBackward = true;
+        moveForward = false;
+      } else {
+        moveForward = false;
+        moveBackward = false;
+      }
+
+      if (evt.detail.x < -0.5) {
+        moveLeft = true;
+      } else {
+        moveLeft = false;
+      }
+
+      if (evt.detail.x > 0.5) {
+        moveRight = true;
+      } else {
+        moveRight = false;
+      }
+    });
+
+    // RIGHT THUMBSTICK
+    rightController.addEventListener('thumbstickmoved', function (evt) {
+      if (evt.detail.y < -0.5) {
+        moveForward = true;
+        moveBackward = false;
+      } else if (evt.detail.y > 0.5) {
+        moveBackward = true;
+        moveForward = false;
+      } else {
+        moveForward = false;
+        moveBackward = false;
+      }
+
+      if (evt.detail.x < -0.5) {
+        moveLeft = true;
+      } else {
+        moveLeft = false;
+      }
+
+      if (evt.detail.x > 0.5) {
+        moveRight = true;
+      } else {
+        moveRight = false;
+      }
+    });
+
+    // MOVE EVERY FRAME
+    AFRAME.registerComponent('move-player', {
+      tick: function () {
+        let pos = rig.getAttribute('position');
+
+        if (moveForward) {
+          pos.z -= 0.05;
+        }
+
+        if (moveBackward) {
+          pos.z += 0.05;
+        }
+
+        if (moveLeft){
+            pos.x -= 0.05;
+        }
+
+        if(moveRight){
+            pos.x += 0.05;
+        }
+
+        rig.setAttribute('position', pos);
+      }
+    });
+
+    document.querySelector('a-scene').setAttribute('move-player', '');
+    
+    const mercuryPlanet = document.querySelector('#mercuryPlanet');
+    const venusPlanet = document.querySelector('#venusPlanet');
+    const earthPlanet = document.querySelector('#earthPlanet');
+    const marsPlanet = document.querySelector('#marsPlanet');
+    const jupiterPlanet = document.querySelector('#jupiterPlanet');
+    const saturnPlanet = document.querySelector('#saturnPlanet');
+    const uranusPlanet = document.querySelector('#uranusPlanet');
+    const neptunePlanet = document.querySelector('#neptunePlanet');
+
+    mercuryPlanet.addEventListener('click', () => {
+    window.location.href = "mercury.html";
+    });
+
+    venusPlanet.addEventListener('click', () => {
+    window.location.href = "venus.html";
+    });
+
+    earthPlanet.addEventListener('click', () => {
+    window.location.href = "earth.html";
+    });
+
+    marsPlanet.addEventListener('click', () => {
+    window.location.href = "mars.html";
+    });
+
+    jupiterPlanet.addEventListener('click', () => {
+    window.location.href = "jupiter.html";
+    });
+
+    saturnPlanet.addEventListener('click', () => {
+    window.location.href = "saturn.html";
+    });
+
+    uranusPlanet.addEventListener('click', () => {
+    window.location.href = "uranus.html";
+    });
+
+    neptunePlanet.addEventListener('click', () => {
+    window.location.href = "neptune.html";
+    });
+  });
+  
+</script>
+</body>
+</html>

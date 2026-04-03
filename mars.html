@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mars Environment</title>
+  <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-look-at-component@1.0.0/dist/aframe-look-at-component.min.js"></script>
+</head>
+<body>
+<a-scene>
+
+  <a-entity id="rig">
+    <a-entity id="cam" camera position="0 1.6 0" look-controls></a-entity>
+    <a-entity id="leftController" meta-touch-controls="hand: left" laser-controls="hand: left" raycaster="objects: .clickable; far: 20" line="color: cyan"></a-entity>
+    <a-entity id="rightController" meta-touch-controls="hand: right" laser-controls="hand: right" raycaster="objects: .clickable; far: 20" line="color: magenta"></a-entity>
+  </a-entity>
+
+  <a-sky color="#C1440E"></a-sky>
+  <a-plane position="0 0 -10" rotation="-90 0 0" width="120" height="120" color="#8B4513"></a-plane>
+
+  <a-sphere position="5 1 -14" radius="1.4" color="#A0522D"></a-sphere>
+  <a-sphere position="-6 0.8 -16" radius="1" color="#CD853F"></a-sphere>
+  <a-box position="8 1.2 -20" depth="4" height="2.5" width="5" color="#B22222"></a-box>
+
+  <a-text value="MARS ENVIRONMENT" position="0 4 -6" align="center" color="white" width="12" side="double" look-at="#cam"></a-text>
+
+  <a-box id="backButton" class="clickable" position="0 1 -4" depth="0.5" height="1" width="4" color="blue"></a-box>
+  <a-text value="BACK TO SOLAR" position="0 2 -4" align="center" color="white" width="8" side="double" look-at="#cam"></a-text>
+
+</a-scene>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const rig = document.querySelector('#rig');
+  const leftController = document.querySelector('#leftController');
+  const rightController = document.querySelector('#rightController');
+  const backButton = document.querySelector('#backButton');
+
+  let moveForward = false, moveBackward = false, moveLeft = false, moveRight = false;
+
+  function handleThumbstick(evt) {
+    if (evt.detail.y < -0.5) { moveForward = true; moveBackward = false; }
+    else if (evt.detail.y > 0.5) { moveBackward = true; moveForward = false; }
+    else { moveForward = false; moveBackward = false; }
+
+    moveLeft = evt.detail.x < -0.5;
+    moveRight = evt.detail.x > 0.5;
+  }
+
+  leftController.addEventListener('thumbstickmoved', handleThumbstick);
+  rightController.addEventListener('thumbstickmoved', handleThumbstick);
+
+  AFRAME.registerComponent('move-player', {
+    tick: function () {
+      let pos = rig.getAttribute('position');
+      if (moveForward) pos.z -= 0.05;
+      if (moveBackward) pos.z += 0.05;
+      if (moveLeft) pos.x -= 0.05;
+      if (moveRight) pos.x += 0.05;
+      rig.setAttribute('position', pos);
+    }
+  });
+
+  document.querySelector('a-scene').setAttribute('move-player', '');
+
+  backButton.addEventListener('click', function () {
+    window.location.href = "index.html";
+  });
+});
+</script>
+</body>
+</html>
