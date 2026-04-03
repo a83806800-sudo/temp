@@ -3,18 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <title>Earth Environment</title>
+
+  <!-- A-Frame -->
   <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+
+  <!-- Look-at for text -->
   <script src="https://unpkg.com/aframe-look-at-component@1.0.0/dist/aframe-look-at-component.min.js"></script>
-  <script src="https://unpkg.com/aframe-obj-model-component@1.0.0/dist/aframe-obj-model-component.min.js"></script>
 </head>
 <body>
 <a-scene>
 
-  <a-assets>
-  <a-asset-item id="earthModel" src="models/tinker.glb"></a-asset-item>
+  <!-- ASSETS -->
+  <a-assets timeout="60000">
+    <a-asset-item id="earthModel" src="models/tinker.glb"></a-asset-item>
   </a-assets>
 
-  <a-entity id="rig">
+  <!-- PLAYER RIG -->
+  <a-entity id="rig" position="0 0 0">
     <a-entity id="cam" camera position="0 1.6 0" look-controls></a-entity>
 
     <a-entity id="leftController"
@@ -30,25 +35,57 @@
       line="color: magenta"></a-entity>
   </a-entity>
 
+  <!-- LIGHTS -->
+  <a-entity light="type: ambient; intensity: 1.4"></a-entity>
+  <a-entity light="type: directional; intensity: 1.2" position="2 5 3"></a-entity>
+  <a-entity light="type: point; intensity: 1; distance: 30" position="0 5 -5"></a-entity>
+
+  <!-- SKY -->
   <a-sky color="#87CEEB"></a-sky>
 
-  <a-plane position="0 0 -10" rotation="-90 0 0" width="120" height="120" color="#565857"></a-plane>
+  <!-- GROUND -->
+  <a-plane position="0 0 -10"
+           rotation="-90 0 0"
+           width="120"
+           height="120"
+           color="#565857"></a-plane>
 
-  
+  <!-- TITLE -->
+  <a-text value="EARTH ENVIRONMENT"
+          position="0 4 -6"
+          align="center"
+          color="white"
+          width="12"
+          side="double"
+          look-at="#cam"></a-text>
 
-  <a-text value="EARTH ENVIRONMENT" position="0 4 -6" align="center" color="white" width="12" side="double" look-at="#cam"></a-text>
+  <!-- BACK BUTTON -->
+  <a-box id="backButton"
+         class="clickable"
+         position="0 1 -4"
+         depth="0.5"
+         height="1"
+         width="4"
+         color="blue"></a-box>
 
-  <a-box id="backButton" class="clickable" position="0 1 -4" depth="0.5" height="1" width="4" color="blue"></a-box>
-  <a-text value="BACK TO SOLAR" position="0 2 -4" align="center" color="white" width="8" side="double" look-at="#cam"></a-text>
-  
+  <a-text value="BACK TO SOLAR"
+          position="0 2 -4"
+          align="center"
+          color="white"
+          width="8"
+          side="double"
+          look-at="#cam"></a-text>
+
+  <!-- GLB MODEL -->
   <a-entity
-  id="earthModelEntity"
-  gltf-model="#earthModel"
-  position="0 0 -8"
-  rotation="0 180 0"
-  scale="1 1 1"
-  animation="property: rotation; to: 0 360 0; loop: true; dur: 10000">
+    id="earthModelEntity"
+    gltf-model="#earthModel"
+    position="0 0 -8"
+    rotation="-90 0 0"
+    scale="0.1 0.1 0.1"
+   
   </a-entity>
+
 </a-scene>
 
 <script>
@@ -57,13 +94,21 @@ document.addEventListener('DOMContentLoaded', function () {
   const leftController = document.querySelector('#leftController');
   const rightController = document.querySelector('#rightController');
   const backButton = document.querySelector('#backButton');
+  const model = document.querySelector('#earthModelEntity');
 
   let moveForward = false, moveBackward = false, moveLeft = false, moveRight = false;
 
   function handleThumbstick(evt) {
-    if (evt.detail.y < -0.5) { moveForward = true; moveBackward = false; }
-    else if (evt.detail.y > 0.5) { moveBackward = true; moveForward = false; }
-    else { moveForward = false; moveBackward = false; }
+    if (evt.detail.y < -0.5) {
+      moveForward = true;
+      moveBackward = false;
+    } else if (evt.detail.y > 0.5) {
+      moveBackward = true;
+      moveForward = false;
+    } else {
+      moveForward = false;
+      moveBackward = false;
+    }
 
     moveLeft = evt.detail.x < -0.5;
     moveRight = evt.detail.x > 0.5;
@@ -75,10 +120,12 @@ document.addEventListener('DOMContentLoaded', function () {
   AFRAME.registerComponent('move-player', {
     tick: function () {
       let pos = rig.getAttribute('position');
+
       if (moveForward) pos.z -= 0.05;
       if (moveBackward) pos.z += 0.05;
       if (moveLeft) pos.x -= 0.05;
       if (moveRight) pos.x += 0.05;
+
       rig.setAttribute('position', pos);
     }
   });
@@ -87,6 +134,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
   backButton.addEventListener('click', function () {
     window.location.href = "index.html";
+  });
+
+  // MODEL LOAD DEBUG
+  model.addEventListener('model-loaded', function () {
+    console.log("✅ Earth GLB model loaded successfully");
+  });
+
+  model.addEventListener('model-error', function (e) {
+    console.error("❌ Earth GLB model failed to load", e);
   });
 });
 </script>
